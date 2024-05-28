@@ -1,19 +1,37 @@
-// Update this page (the content is just a fallback if you fail and example)
-// Use chakra-ui
-import { Container, Text, VStack } from "@chakra-ui/react";
+import { Box, Container, Heading, Text, VStack, Link } from "@chakra-ui/react";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import { Link as RouterLink } from "react-router-dom";
 
-// Example of using react-icons
-// import { FaRocket } from "react-icons/fa";
-// <IconButton aria-label="Add" icon={<FaRocket />} size="lg" />; // IconButton would also have to be imported from chakra
+const categories = [
+  { name: "General", description: "General discussions about technology." },
+  { name: "Programming", description: "Talk about coding, algorithms, and more." },
+  { name: "Hardware", description: "Discuss the latest in computer hardware." },
+  { name: "Software", description: "Share insights on software and applications." },
+];
 
 const Index = () => {
   return (
-    <Container centerContent maxW="container.md" height="100vh" display="flex" flexDirection="column" justifyContent="center" alignItems="center">
-      <VStack spacing={4}>
-        <Text fontSize="2xl">Your Blank Canvas</Text>
-        <Text>Chat with the agent to start making edits.</Text>
-      </VStack>
-    </Container>
+    <Box>
+      <Navbar />
+      <Container maxW="container.md" py={10}>
+        <Heading as="h1" mb={6} textAlign="center">
+          Welcome to Tech Forum
+        </Heading>
+        <VStack spacing={8}>
+          {categories.map((category) => (
+            <Box key={category.name} p={5} shadow="md" borderWidth="1px" width="100%">
+              <Heading fontSize="xl">{category.name}</Heading>
+              <Text mt={4}>{category.description}</Text>
+              <Link as={RouterLink} to={`/categories/${category.name.toLowerCase()}`} color="blue.500" mt={2} display="block">
+                View Discussions
+              </Link>
+            </Box>
+          ))}
+        </VStack>
+      </Container>
+      <Footer />
+    </Box>
   );
 };
 
